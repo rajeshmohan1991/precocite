@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for post in posts %}
+    <div><p>{{ post.author.title }} : <b>{{ post.body }}</b></p></div>
+    {% endfor %}
+    <form action="{{ url_for('bc') }}">
+        {% if status=='learning' %}
+            <button name="Working" type="submit">Start Working</button>
+        {% endif %}
+    </form>
+{% endblock %}

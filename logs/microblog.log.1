@@ -1,0 +1,121 @@
+2018-08-22 01:51:56,175 ERROR: Exception on /landing [GET] [in /usr/local/lib/python2.7/dist-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/root/microblog_tryout/app/routes.py", line 25, in landing
+    return render_template("landing.html", status=status, title='Landing Page', posts=posts)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 134, in render_template
+    return _render(ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 869, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 830, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 804, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/loaders.py", line 125, in load
+    code = environment.compile(source, name, filename)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 591, in compile
+    self.handle_exception(exc_info, source_hint=source_hint)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/microblog_tryout/app/templates/landing.html", line 19, in template
+    {% endblock %}
+TemplateSyntaxError: Encountered unknown tag 'endblock'. You probably made a nesting mistake. Jinja is expecting this tag, but currently looking for 'endif'. The innermost block that needs to be closed is 'if'.
+2018-08-22 01:52:50,608 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-22 01:54:13,131 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-22 02:03:09,373 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-22 02:04:08,460 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-22 02:06:48,779 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-22 02:10:18,654 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-22 02:15:14,174 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-22 02:18:20,435 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-22 02:19:13,565 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-22 02:21:02,195 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-07 19:38:55,936 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 19:51:07,723 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 19:59:33,204 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 19:59:37,866 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 20:04:53,903 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 20:18:14,932 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 20:20:50,964 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 20:36:47,930 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 20:37:57,754 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 20:42:04,572 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 20:43:21,892 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 21:00:31,061 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 21:07:38,519 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 21:20:20,047 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 21:20:44,447 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 21:22:49,187 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 21:34:05,036 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:45]
+2018-08-24 21:45:24,223 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:47]
+2018-08-24 22:23:26,347 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:23:31,873 ERROR: Exception on /landing [GET] [in /usr/local/lib/python2.7/dist-packages/flask/app.py:1761]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/root/microblog_tryout/app/routes.py", line 26, in landing
+    return render_template("landing.html", status=status, title='Home Page', posts=posts)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 135, in render_template
+    context, ctx.app)
+  File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 117, in _render
+    rv = template.render(context)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/microblog_tryout/app/templates/base.html", line 94, in template
+    {% block content %}{% endblock %}
+TemplateAssertionError: block 'content' defined twice
+2018-08-24 22:25:00,377 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:25:25,732 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:27:13,987 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:27:53,224 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:29:15,378 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:29:46,084 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:30:18,247 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:31:08,471 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:32:30,777 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:36:26,082 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:37:53,169 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:39:11,334 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:40:41,334 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:41:22,341 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:42:18,528 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:44:17,019 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:48:09,814 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:50:01,950 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:51:55,507 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 22:55:57,982 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:49]
+2018-08-24 23:01:55,022 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
+2018-08-24 23:09:02,740 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
+2018-08-24 23:52:51,083 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
+2018-08-25 00:02:59,174 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
+2018-08-25 00:08:03,906 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
+2018-08-25 00:14:21,962 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
+2018-08-25 00:14:41,266 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
+2018-08-25 00:16:46,995 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
+2018-08-25 00:18:02,839 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
+2018-08-25 00:19:37,438 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
+2018-08-25 00:21:20,988 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
+2018-08-25 00:26:17,083 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
