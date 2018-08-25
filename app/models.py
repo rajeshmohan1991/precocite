@@ -20,6 +20,7 @@ class User(UserMixin, db.Model):
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     current_mode = db.Column(db.String(64))
+    current_polarity = db.Column(db.Float)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -58,7 +59,7 @@ class User(UserMixin, db.Model):
             followers, (followers.c.followed_id == Post.user_id)).filter(
                 followers.c.follower_id == self.id)
         own = Post.query.filter_by(user_id=self.id)
-        return followed.union(own).order_by(Post.timestamp.desc())
+        return followed.union(own).order_by(Post.timestamp.asc())
 
     def get_reset_password_token(self, expires_in=600):
         return jwt.encode(
