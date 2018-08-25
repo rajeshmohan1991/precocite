@@ -11,6 +11,7 @@ from app.email import send_password_reset_email
 from textblob import TextBlob
 from functools import wraps
 
+page_dict = {'viewer': 'landing', 'chat': 'index', 'learning': 'learning', 'working': 'blockchain'}
 #status = current_user.current_mode
 @app.route('/')
 @app.route('/landing')
@@ -29,13 +30,13 @@ def landing():
     ]
     return render_template("landing.html", status=status, title='Home Page', posts=posts)
 
-def check_gotstarted(index):
-    @wraps(index)
+def check_gotstarted(landing):
+    @wraps(landing)
     def decorated_function(*args, **kwargs):
-        if current_user.current_mode != 'chat':
-            flash("You need to get started. Please select the Get Started option!")
-            return redirect(url_for('landing'))
-        return index(*args, **kwargs)
+        if current_user.current_mode == 'viewer':
+            flash("You need to get started or complete this phase!")
+            return redirect(url_for(page_dict[current_user.current_mode]))
+        return landing(*args, **kwargs)
     return decorated_function
 
 #@app.route('/')
@@ -78,9 +79,9 @@ def explore():
 def check_chatcomplete(index):
     @wraps(index)
     def decorated_function(*args, **kwargs):
-        if current_user.current_mode != 'learning':
-            flash("You need to complete the chat!")
-            return redirect(url_for('index'))
+        if (current_user.current_mode != 'learning') or (current_user.current_mode != 'working'):
+            flash("You need to get started or complete this phase!")
+            return redirect(url_for(page_dict[current_user.current_mode]))
         return index(*args, **kwargs)    
     return decorated_function
 
@@ -92,26 +93,36 @@ def learning():
     posts = [
         {
             'author': {'title': 'lesson1'},
-            'body': 'Beautiful day in Portland!'
+            'body': 'Raspberry Pi is a minified network enabled computer!'
         },
         {
             'author': {'title': 'lesson2'},
-            'body': 'The Avengers movie was so cool!'
+            'body': 'Python is a powerful programming language!'
         }
     ]
     return render_template("learning.html", status=status, title='Learning Page', posts=posts)
 
+def check_learnt(learning):
+    @wraps(learning)
+    def decorated_function(*args, **kwargs):
+        if current_user.current_mode != 'working':
+            flash("You need to get started or complete this phase!")
+            return redirect(url_for(page_dict[current_user.current_mode]))
+        return learning(*args, **kwargs)
+    return decorated_function
+
 @app.route('/blockchain')
 @login_required
+@check_learnt
 def blockchain():
     posts = [
         {
             'author': {'title': 'hyperledger'},
-            'body': 'Beautiful day in Portland!'
+            'body': 'Hyperledger is from Linux foundation!'
         },
         {
             'author': {'title': 'ethereum'},
-            'body': 'The Avengers movie was so cool!'
+            'body': 'Ethereum is the base of bitcoin!'
         }
     ]
     return render_template("blockchain.html", title='Blockchain Page', posts=posts)
