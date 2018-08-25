@@ -68,7 +68,7 @@ def index():
     else:
         promote = 'false' 
     posts = current_user.followed_posts().all()
-    return render_template("index.html", status=status, title='Home Page', form=form, posts=posts, user_title=int_polarity, promote=promote)
+    return render_template("index.html", status=status, title='Home Page', form=form, posts=posts, user_title=user_title, promote=promote)
 
 @app.route('/explore')
 @login_required
@@ -76,18 +76,18 @@ def explore():
     posts = Post.query.order_by(Post.timestamp.desc()).all()
     return render_template('index.html', title='Explore', posts=posts)
 
-def check_chatcomplete(index):
-    @wraps(index)
+def check_chat(landing):
+    @wraps(landing)
     def decorated_function(*args, **kwargs):
-        if (current_user.current_mode != 'learning') or (current_user.current_mode != 'working'):
+        if (current_user.current_mode == 'viewer') or (current_user.current_mode == 'chat'):
             flash("You need to get started or complete this phase!")
             return redirect(url_for(page_dict[current_user.current_mode]))
-        return index(*args, **kwargs)    
+        return landing(*args, **kwargs)    
     return decorated_function
 
 @app.route('/learning')
 @login_required
-@check_chatcomplete
+@check_chat
 def learning():
     status = current_user.current_mode
     posts = [
@@ -145,6 +145,8 @@ def login():
             next_page = url_for('index')
         elif user.current_mode == 'learning':
             next_page = url_for('learning')
+        elif user.current_mode == 'working':
+            next_page = url_for('blockchain')
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
