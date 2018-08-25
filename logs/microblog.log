@@ -46,3 +46,4 @@ NameError: global name 'app' is not defined
 2018-08-25 01:24:07,984 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
 2018-08-25 01:28:20,075 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
 2018-08-25 01:36:10,113 INFO: Microblog startup [in /root/microblog_tryout/app/__init__.py:51]
+2018-08-25 13:45:22,614 INFO: Microblog startup [in /root/code/precocite/app/__init__.py:51]
