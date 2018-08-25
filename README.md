@@ -1,6 +1,6 @@
 # Precocite
 
-Installation:
+# Installation:
 
 docker run --name mysql -d -e MYSQL_RANDOM_ROOT_PASSWORD=yes \
     -e MYSQL_DATABASE=microblog -e MYSQL_USER=microblog \
