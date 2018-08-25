@@ -8,6 +8,7 @@ from app.models import User, Post
 from datetime import datetime
 from app.forms import EditProfileForm, ResetPasswordRequestForm
 from app.email import send_password_reset_email
+from textblob import TextBlob
 #status = current_user.current_mode
 @app.route('/')
 @app.route('/landing')
@@ -35,14 +36,27 @@ def index():
     user_title = current_user.username.title()
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.post.data, author=current_user)
+        body = TextBlob(form.post.data)
+	spell_checked_body = str(body.correct())
+        post = Post(body=spell_checked_body, author=current_user)
+        flash('Your post is now live!')
+        testimonial = TextBlob(spell_checked_body)
+        polarity = float(testimonial.sentiment.polarity)
+        user_score = float(current_user.current_polarity)
+        score = user_score + polarity
+        current_user.current_polarity = score
         db.session.add(post)
         db.session.commit()
-        flash('Your post is now live!')
-        
         return redirect(url_for('index'))
+    so = current_user.current_polarity
+    int_polarity = int(float(current_user.current_polarity))
+    #if int_polarity >= 1:
+    if int_polarity >= 1 and current_user.followers.count() or current_user.followed.count():
+       soc = 'true'
+    else:
+       soc = 'false'
     posts = current_user.followed_posts().all()
-    return render_template("index.html", status=status, title='Home Page', form=form, posts=posts, user_title=user_title)
+    return render_template("index.html", status=status, title='Home Page', form=form, posts=posts, user_title=so)
 
 @app.route('/explore')
 @login_required
@@ -144,7 +158,7 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, current_mode='viewer')
+        user = User(username=form.username.data, email=form.email.data, current_mode='viewer', current_polarity=0)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
