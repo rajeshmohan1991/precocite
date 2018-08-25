@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
-{% block content %}
+{% block app_content %}
     {% for post in posts %}
     <div><p>{{ post.author.title }} : <b>{{ post.body }}</b></p></div>
     {% endfor %}

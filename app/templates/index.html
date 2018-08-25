@@ -25,7 +25,7 @@
     {% endif %}
     <span style="visibility: {% if title!='Explore' %}visible {% else %}hidden {% endif %};">
         <form action="{{ url_for('sl') }}">
-            {% if status=='chat' %}
+            {% if promote=='true' %}
                 <button name="Learning" type="submit">Start Learning</button>
             {% endif %}
         </form>

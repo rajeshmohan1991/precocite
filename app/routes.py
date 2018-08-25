@@ -9,6 +9,8 @@ from datetime import datetime
 from app.forms import EditProfileForm, ResetPasswordRequestForm
 from app.email import send_password_reset_email
 from textblob import TextBlob
+from functools import wraps
+
 #status = current_user.current_mode
 @app.route('/')
 @app.route('/landing')
@@ -27,9 +29,19 @@ def landing():
     ]
     return render_template("landing.html", status=status, title='Home Page', posts=posts)
 
+def check_gotstarted(index):
+    @wraps(index)
+    def decorated_function(*args, **kwargs):
+        if current_user.current_mode != 'chat':
+            flash("You need to get started. Please select the Get Started option!")
+            return redirect(url_for('landing'))
+        return index(*args, **kwargs)
+    return decorated_function
+
 #@app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
+@check_gotstarted
 def index():
 #    user_mode = 'viewer'
     status = current_user.current_mode
@@ -37,7 +49,7 @@ def index():
     form = PostForm()
     if form.validate_on_submit():
         body = TextBlob(form.post.data)
-	spell_checked_body = str(body.correct())
+        spell_checked_body = str(body.correct())
         post = Post(body=spell_checked_body, author=current_user)
         flash('Your post is now live!')
         testimonial = TextBlob(spell_checked_body)
@@ -48,15 +60,14 @@ def index():
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('index'))
-    so = current_user.current_polarity
+    userscore_reference = current_user.current_polarity
     int_polarity = int(float(current_user.current_polarity))
-    #if int_polarity >= 1:
-    if int_polarity >= 1 and current_user.followers.count() or current_user.followed.count():
-       soc = 'true'
+    if (int_polarity >= 1 and current_user.current_mode == 'chat') and (current_user.followers.count() or current_user.followed.count()):
+        promote = 'true'
     else:
-       soc = 'false'
+        promote = 'false' 
     posts = current_user.followed_posts().all()
-    return render_template("index.html", status=status, title='Home Page', form=form, posts=posts, user_title=so)
+    return render_template("index.html", status=status, title='Home Page', form=form, posts=posts, user_title=int_polarity, promote=promote)
 
 @app.route('/explore')
 @login_required
@@ -64,11 +75,19 @@ def explore():
     posts = Post.query.order_by(Post.timestamp.desc()).all()
     return render_template('index.html', title='Explore', posts=posts)
 
+def check_chatcomplete(index):
+    @wraps(index)
+    def decorated_function(*args, **kwargs):
+        if current_user.current_mode != 'learning':
+            flash("You need to complete the chat!")
+            return redirect(url_for('index'))
+        return index(*args, **kwargs)    
+    return decorated_function
+
 @app.route('/learning')
 @login_required
+@check_chatcomplete
 def learning():
-#    user_mode = 'viewer'
-#    user_title = current_user.username.title()
     status = current_user.current_mode
     posts = [
         {
@@ -85,8 +104,6 @@ def learning():
 @app.route('/blockchain')
 @login_required
 def blockchain():
-#    user_mode = 'viewer'
-#    user_title = current_user.username.title()
     posts = [
         {
             'author': {'title': 'hyperledger'},
