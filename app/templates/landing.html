@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for post in posts %}
+    <div><p>{{ post.author.title }} : <b>{{ post.body }}</b></p></div>
+    {% endfor %}
+    {% if status == 'viewer' %}
+        <form action="{{ url_for('gs') }}">
+    {% elif status == 'chat' %}
+        <form action="{{ url_for('index') }}">
+    {% elif status == 'learning' %}
+        <form action="{{ url_for('sl') }}">
+    {% elif status == 'working' %}
+        <form action="{{ url_for('bc') }}">
+    {% endif %}
+            {% if status == 'viewer' %}
+                <button name="Getting Started" type="submit">Get Started</button>
+            {% else %}
+                <button name="Getting Started" type="submit">Resume {{ status }}</button>
+            {% endif %}
+    </form>
+{% endblock %}
