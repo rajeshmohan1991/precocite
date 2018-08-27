@@ -2,10 +2,16 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-
-    {% for post in posts %}
-    <div><p>{{ post.author.title }} : <b>{{ post.body }}</b></p></div>
-    {% endfor %}
+    <h2>{{ data.question }}</h2>
+    <form action="/learning">
+        {% for e in data.fields %}
+            <input type="radio" name="field" value="{{ e }}"> {{ e }}<br>
+        {% endfor %}
+    <input type="submit" value="Vote" />
+    </form>
+    {% if vote %}
+        <h1>{{ vote }}</h1>
+    {% endif %}
     <form action="{{ url_for('bc') }}">
         {% if status=='learning' %}
             <button name="Working" type="submit">Start Working</button>

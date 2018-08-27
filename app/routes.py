@@ -10,6 +10,7 @@ from app.forms import EditProfileForm, ResetPasswordRequestForm
 from app.email import send_password_reset_email
 from textblob import TextBlob
 from functools import wraps
+import os
 
 page_dict = {'viewer': 'landing', 'chat': 'index', 'learning': 'learning', 'working': 'blockchain'}
 #status = current_user.current_mode
@@ -28,7 +29,7 @@ def landing():
             'body': 'Use this platform!'
         }
     ]
-    return render_template("landing.html", status=status, title='Home Page', posts=posts)
+    return render_template("landing.html", status=status, posts=posts)
 
 def check_gotstarted(landing):
     @wraps(landing)
@@ -68,7 +69,7 @@ def index():
     else:
         promote = 'false' 
     posts = current_user.followed_posts().all()
-    return render_template("index.html", status=status, title='Home Page', form=form, posts=posts, user_title=user_title, promote=promote)
+    return render_template("index.html", status=status, title='Chat', form=form, posts=posts, user_title=user_title, promote=promote)
 
 @app.route('/explore')
 @login_required
@@ -85,22 +86,18 @@ def check_chat(landing):
         return landing(*args, **kwargs)    
     return decorated_function
 
-@app.route('/learning')
+poll_data = {
+   'question' : 'Which programming language is well suited for rural web programming?',
+   'fields'   : ['Shell', 'Python', 'Swift', 'Java']
+}
+
+@app.route('/learning', methods=['GET', 'POST'])
 @login_required
 @check_chat
 def learning():
     status = current_user.current_mode
-    posts = [
-        {
-            'author': {'title': 'lesson1'},
-            'body': 'Raspberry Pi is a minified network enabled computer!'
-        },
-        {
-            'author': {'title': 'lesson2'},
-            'body': 'Python is a powerful programming language!'
-        }
-    ]
-    return render_template("learning.html", status=status, title='Learning Page', posts=posts)
+    vote = request.args.get('field')
+    return render_template("learning.html", data=poll_data, title='Learn', vote=vote)
 
 def check_learnt(learning):
     @wraps(learning)
@@ -125,7 +122,7 @@ def blockchain():
             'body': 'Ethereum is the base of bitcoin!'
         }
     ]
-    return render_template("blockchain.html", title='Blockchain Page', posts=posts)
+    return render_template("blockchain.html", title='Work', posts=posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
