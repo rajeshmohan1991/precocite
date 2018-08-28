@@ -5,17 +5,19 @@
     <span style="visibility: {% if title!='Explore' %}visible {% else %}hidden {% endif %};">
         <h1>Hi, {{ user_title }}!</h1>
     </span>
-    <div>
+    <div class="container">
+    <div style="overflow-y: auto; height: 35vh;">
     {% for post in posts %}
         {% include '_post.html' %}
     {% endfor %}
+    </div>
     </div>
     {% if form %}
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
             {{ form.post.label }}<br>
-            {{ form.post(cols=32, rows=4) }}<br>
+            {{ form.post(cols=32, rows=2) }}<br>
             {% for error in form.post.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}

@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
+{% block blockchain_content %}
+    <li><a href="{{ url_for('blockchain') }}">Make Transaction</a></li>
+    <li><a href="{{ url_for('blockchain') }}">View Transactions</a></li>
+{% endblock %}
+
 {% block app_content %}
     {% for post in posts %}
     <div><p>{{ post.author.title }} : <b>{{ post.body }}</b></p></div>
